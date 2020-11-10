@@ -3,26 +3,23 @@
 #include "user/user.h"
 #include "kernel/fs.h"
 
-char*
-fmtname(char *p)//fan hui zui hou yi ge dan ci
+char* fmtname(char *path)//fan hui zui hou yi ge dan ci
 {
-    char *t=p;
+    char *temp=path;
     char *last=0;
-    while(*t!='\0'){
-        if(*t=='/'){
-            last=t;
+    while(*temp!='\0'){
+        if(*temp=='/'){
+            last=temp;
         }
-        t++;
+        temp++;
     }
-    // 也可能没有/，那么p指向的文件名
     if(last==0){
-        return p;
+        return path;
     }
     return last+1;
 }
 
-void
-find(char *path,char *re)
+void find(char *path,char *re)
 {
   char buf[512], *p;
   int fd;
@@ -75,8 +72,7 @@ find(char *path,char *re)
   close(fd);
 }
 
-int
-main(int argc, char *argv[])
+int main(int argc, char *argv[])
 {
   if(argc <= 2){
     exit();

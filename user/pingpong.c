@@ -8,16 +8,21 @@ int main(int argc, char *argv[]) {
   char buf[64];
 
   if (fork()) {
-    // Parent
+    close(parent_fd[0]);
+    close(child_fd[1]);
     write(parent_fd[1], "ping", strlen("ping"));
+    close(parent_fd[1]);
     read(child_fd[0], buf, 4);
     printf("%d: received %s\n", getpid(), buf);
+    close(child_fd[0]);
   } else {
-    // Child
+    close(parent_fd[1]);
+    close(child_fd[0]);
     read(parent_fd[0], buf, 4);
     printf("%d: received %s\n", getpid(), buf);
     write(child_fd[1], "pong", strlen("pong"));
+    close(child_fd[1]);
+    close(parent_fd[0]);
   }
-
   exit();
 }

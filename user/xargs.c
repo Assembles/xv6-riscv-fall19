@@ -5,6 +5,7 @@
  
 #define LINE 128
 #define PARAMS 10
+
 int main(int argc, char *argv[])
 {
   if (argc < 2)
