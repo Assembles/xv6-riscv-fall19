@@ -3,20 +3,16 @@
 #include "user/user.h"
 #include "kernel/fs.h"
 
-char* fmtname(char *path)//fan hui zui hou yi ge dan ci
+char* fmtname(char *path)
 {
-    char *temp=path;
-    char *last=0;
-    while(*temp!='\0'){
-        if(*temp=='/'){
-            last=temp;
-        }
-        temp++;
-    }
-    if(last==0){
+    char *temp;
+    for(temp=path+strlen(path); temp >= path && *temp != '/'; temp--)
+      ;
+    temp++;
+    if(temp==0){
         return path;
     }
-    return last+1;
+    return temp;
 }
 
 void find(char *path,char *re)
